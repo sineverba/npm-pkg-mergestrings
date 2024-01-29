@@ -1,6 +1,6 @@
 {
   "name": "mergestrings",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "It merges multiple strings in one, separate by space",
   "main": "dist/index.js",
   "repository": {
