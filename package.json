@@ -1,6 +1,6 @@
 {
-  "name": "mergestrings",
-  "version": "1.0.0",
+  "name": "@sineverba/mergestrings",
+  "version": "1.1.0",
   "description": "It merges multiple strings in one, separate by space",
   "main": "dist/index.js",
   "repository": {
