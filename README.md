@@ -1,31 +1,68 @@
-| CI / CD | Status |
-| ------- | ------ |
-| NPM | [![npm version](https://badge.fury.io/js/mergestrings.svg)](https://badge.fury.io/js/mergestrings) |
-| Semaphore CI | [![Build Status](https://sineverba.semaphoreci.com/badges/npm-pkg-mergestrings/branches/master.svg)](https://sineverba.semaphoreci.com/projects/npm-pkg-mergestrings) |
-| Circle CI | [![CircleCI](https://circleci.com/gh/sineverba/npm-pkg-mergestrings.svg?style=svg)](https://circleci.com/gh/sineverba/npm-pkg-mergestrings) |
-| Coverall | [![Coverage Status](https://coveralls.io/repos/github/sineverba/npm-pkg-mergestrings/badge.svg?branch=master)](https://coveralls.io/github/sineverba/npm-pkg-mergestrings?branch=master) |
-| SonarCloud | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=npm-pkg-mergestrings&metric=alert_status)](https://sonarcloud.io/dashboard?id=npm-pkg-mergestrings) |
+# mergestrings ✂️
 
-`mergestrings` merge multiple strings in one string, seaparte by space.
+> Merges multiple strings into one, separated by a space. Empty strings are automatically filtered out.
 
-## Installation
-`npm install @sineverba/mergestrings`
+[![npm version](https://img.shields.io/npm/v/@sineverba/mergestrings?style=flat-square&logo=npm)](https://www.npmjs.com/package/@sineverba/mergestrings)
+[![CircleCI](https://img.shields.io/circleci/build/github/sineverba/npm-pkg-mergestrings/master?style=flat-square&logo=circleci)](https://circleci.com/gh/sineverba/npm-pkg-mergestrings)
+[![Coverage Status](https://img.shields.io/coveralls/github/sineverba/npm-pkg-mergestrings/master?style=flat-square&logo=coveralls)](https://coveralls.io/github/sineverba/npm-pkg-mergestrings?branch=master)
+[![Quality Gate](https://img.shields.io/sonar/quality_gate/npm-pkg-mergestrings?server=https%3A%2F%2Fsonarcloud.io&style=flat-square&logo=sonarcloud)](https://sonarcloud.io/dashboard?id=npm-pkg-mergestrings)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 
-## Usage
+---
 
-```js
-import { mergeStrings } from "@sineverba/mergestrings";
+## ⚙️ Installation
 
-const first = "alfa beta";
-const second = "foo bar baz"
-
-const result = mergeStrings(first, second);
-console.log(result); // it prints "alfa beta foo bar baz"
-
+```bash
+npm install @sineverba/mergestrings
 ```
 
-## Tests
+## ⚡️ Quickstart
 
-`npm run test` for simple test
+```ts
+import { mergeStrings } from "@sineverba/mergestrings";
 
-`npm run coverage` for coverage
+const result = mergeStrings("alfa beta", "foo bar baz");
+console.log(result); // "alfa beta foo bar baz"
+```
+
+## 🎯 Features
+
+- Accepts any number of string arguments
+- Automatically filters out empty strings
+- Zero dependencies
+- Fully typed (TypeScript)
+
+## 💡 Usage examples
+
+```ts
+// Basic usage
+mergeStrings("hello", "world");
+// → "hello world"
+
+// Empty strings are ignored
+mergeStrings("hello", "", "world");
+// → "hello world"
+
+// Single argument
+mergeStrings("hello");
+// → "hello"
+
+// No arguments
+mergeStrings();
+// → ""
+```
+
+## 💻 Development
+
+```bash
+nvm use
+npm run test       # run tests
+npm run coverage   # run tests with coverage report
+npm run lint       # ESLint check
+npm run prettier   # check formatting
+npm run build      # compile TypeScript to dist/
+```
+
+## 🧾 License
+
+MIT © [sineverba](https://github.com/sineverba)

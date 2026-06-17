@@ -36,11 +36,8 @@ blocks:
           - cache restore
       jobs:
         - name: Test
-          matrix:
-            - env_var: NODE_VERSION
-              values: [ "14", "16", "18", "20" ]
           commands:
-            - sem-version node $NODE_VERSION
+            - sem-version node 20
             - npm run test
         - name: Prettier
           commands:
@@ -49,6 +46,13 @@ blocks:
             - nvm use
             - npm ci
             - npm run prettier
+        - name: Lint
+          commands:
+            - rm -r node_modules/
+            - nvm install
+            - nvm use
+            - npm ci
+            - npm run lint
 
   - name: Coverage
     skip:
