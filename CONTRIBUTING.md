@@ -1,27 +1,24 @@
 # Contributing
 
-Contributions are **welcome** and will be fully **credited**. This page details how to 
-contribute and the expected code quality for all contributions.
+Contributions are **welcome** and will be fully **credited**.
 
-## Pull Requests
+## Workflow
 
-We accept contributions via Pull Requests.
+1. Fork the repository
+2. Create a branch from `develop`:
+   - `feature/my-awesome-feature` for new features
+   - `hotfix/my-hotfix` for bug fixes
+3. Open a Pull Request against `develop`
+4. Once merged into `develop`, a maintainer will promote it to `master` for release
 
-- **Add tests!** - Your patch won't be accepted if it doesn't have tests. Continuous Integrations are enabled, so your PR need to pass them before accepted.
+> `master` is protected — direct pushes are not allowed.
 
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+## Pull Request checklist
 
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](http://semver.org/). Randomly breaking public APIs is not an option.
+- **Add tests** — PRs without tests will not be accepted
+- **One PR per feature** — split unrelated changes into separate PRs
+- **Update the docs** — keep `README.md` in sync with any behaviour change
+- **Follow SemVer** — breaking changes require a major version bump ([SemVer v2.0.0](http://semver.org/))
+- **Clean history** — squash intermediate commits before submitting
 
-- **Create feature branches** - Don't ask us to pull from your master branch.
-
-   - Create a branch `feature-myawesomefeature` or `hotfix-myhotfix` from `develop`
-   - Push your branch against `develop` branch.
-
-- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
-
-- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](http://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
-
-
- 
-**Happy coding**!
+**Happy coding!**
