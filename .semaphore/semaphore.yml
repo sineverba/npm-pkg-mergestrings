@@ -4,12 +4,12 @@ name: Build and test
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu2004
+    os_image: ubuntu2404
 
 global_job_config:
   env_vars:
     - name: SONARSCANNER_VERSION
-      value: 5.0.1
+      value: 12.1.0.3233_8.0.1
   secrets:
     - name: ACCESS_TOKENS
 
@@ -19,10 +19,12 @@ blocks:
       when: "tag =~ '.*'"
     task:
       jobs:
-        - name: 'Install'
+        - name: Install
           commands:
             - checkout
             - cache restore
+            - nvm install
+            - nvm use
             - npm ci
             - cache store
 
@@ -34,24 +36,17 @@ blocks:
         commands:
           - checkout
           - cache restore
+          - nvm install
+          - nvm use
       jobs:
         - name: Test
           commands:
-            - sem-version node 20
             - npm run test
         - name: Prettier
           commands:
-            - rm -r node_modules/
-            - nvm install
-            - nvm use
-            - npm ci
             - npm run prettier
         - name: Lint
           commands:
-            - rm -r node_modules/
-            - nvm install
-            - nvm use
-            - npm ci
             - npm run lint
 
   - name: Coverage
@@ -62,21 +57,41 @@ blocks:
         commands:
           - checkout
           - cache restore
-          - npm run coverage
+          - nvm install
+          - nvm use
       jobs:
-      - name: Coverage
+        - name: Coverage
+          commands:
+            - npm run coverage
+
+  - name: Reports
+    skip:
+      when: "tag =~ '.*'"
+    task:
+      prologue:
         commands:
-          - export COVERALLS_REPO_TOKEN=$COVERALLS_NPM_PKG_MERGESTRINGS
-          - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
-      - name: Sonarcloud
-        commands:
-          - >-
-            docker run 
-            --rm
-            -e SONAR_HOST_URL="https://sonarcloud.io"
-            -e SONAR_TOKEN=$SONAR_TOKEN
-            -v $PWD:/usr/src
-            sonarsource/sonar-scanner-cli:$SONARSCANNER_VERSION
+          - checkout
+          - cache restore
+          - nvm install
+          - nvm use
+      jobs:
+        - name: Coveralls
+          commands:
+            - npm run coverage
+            - curl -sLO https://coveralls.io/coveralls-linux.tar.gz
+            - tar -xzf coveralls-linux.tar.gz
+            - export COVERALLS_REPO_TOKEN=$COVERALLS_NPM_PKG_MERGESTRINGS
+            - ./coveralls report coverage/lcov.info
+        - name: Sonarcloud
+          commands:
+            - npm run coverage
+            - >-
+              docker run
+              --rm
+              -e SONAR_HOST_URL="https://sonarcloud.io"
+              -e SONAR_TOKEN=$SONAR_TOKEN
+              -v $PWD:/usr/src
+              sonarsource/sonar-scanner-cli:$SONARSCANNER_VERSION
 
 promotions:
   - name: Deploy

@@ -1,5 +1,5 @@
 # Next version
-+ Add CLAUDE.md onboarding file for Claude Code
++ Upgrade dependencies
 
 ## 1.1.0
 + Upgrade dependencies
