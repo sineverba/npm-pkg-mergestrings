@@ -9,7 +9,7 @@ agent:
 global_job_config:
   env_vars:
     - name: SONARSCANNER_VERSION
-      value: 12.1.0.3233
+      value: 8.0.1.6346
   secrets:
     - name: ACCESS_TOKENS
 
@@ -87,12 +87,12 @@ blocks:
             - npm run coverage
             - cache restore sonar-scanner-$SONARSCANNER_VERSION
             - >-
-              test -f sonar-scanner-$SONARSCANNER_VERSION/bin/sonar-scanner ||
-              (curl -sLO https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONARSCANNER_VERSION.zip &&
-              unzip -q sonar-scanner-cli-$SONARSCANNER_VERSION.zip &&
-              cache store sonar-scanner-$SONARSCANNER_VERSION sonar-scanner-$SONARSCANNER_VERSION)
+              test -f sonar-scanner-$SONARSCANNER_VERSION-linux-x64/bin/sonar-scanner ||
+              (curl -sLO https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONARSCANNER_VERSION-linux-x64.zip &&
+              unzip -q sonar-scanner-cli-$SONARSCANNER_VERSION-linux-x64.zip &&
+              cache store sonar-scanner-$SONARSCANNER_VERSION sonar-scanner-$SONARSCANNER_VERSION-linux-x64)
             - >-
-              ./sonar-scanner-$SONARSCANNER_VERSION/bin/sonar-scanner
+              ./sonar-scanner-$SONARSCANNER_VERSION-linux-x64/bin/sonar-scanner
               -Dsonar.host.url=https://sonarcloud.io
               -Dsonar.token=$SONAR_TOKEN
 
